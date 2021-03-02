@@ -29,7 +29,21 @@
   Call your class Employee and receive all the data in the constructor in the order listed above.
 */
 
-//Code Here
+class Employee {
+  constructor (firstName, lastName, email, age) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.email = email
+    this.age = age
+  }
+  makeWidget () {
+    return `${this.firstName} ${this.lastName} Widget`
+  }
+}
+
+let emp = new Employee('Dallin', 'Anderson', 'email@gmail.com', 24)
+console.log(emp.makeWidget())
+
 
 
 ////////// PROBLEM 2 //////////
@@ -47,8 +61,31 @@
   Call your new class Manager
 */
 
-//Code Here
+class Manager extends Employee {
+  constructor(firstName, lastName, email, age) {
+    super(firstName, lastName, email, age, 'Manager')
+    this.reports = []
+  }
 
+  hire (empName) {
+    this.reports.push(empName)
+    return this.reports
+  }
+
+  fire (index) {
+    this.reports.splice(index, 1)
+    return this.reports
+  }
+  
+}
+
+let craig = new Manager('Craig', 'Reee', 'emal@gmal.co', 33)
+
+craig.hire('charles')
+
+craig.fire(0)
+
+// console.log(craig)
 
 ////////// PROBLEM 3 //////////
 
@@ -71,7 +108,63 @@
   Call your new class ProgressiveManager
 */
 
-//Code Here
+class ProgressiveManager extends Manager {
+  constructor (firstName, lastName, email, age) {
+    super (firstName, lastName, email, age, 'ProgressiveManager')
+    this.title = 'not a manager'
+    this.bonus = 0
+  }
+  hire (empName) {
+    super.hire(empName)
+
+    if (this.reports.length === 0) {
+      this.title = 'Not a Manager'
+    }
+
+    else if (this.reports.length <= 3) {
+    this.title = 'barely a manager'
+    }
+
+    else if (this.reports.length <= 10) {
+      this.title = 'Mostly Manager'
+    }
+
+    else if (this.reports.length <= 50) {
+      this.title = 'Manager'
+    }
+
+    else if (this.reports.length <= 100) {
+      this.title = 'Manager Plus'
+    }
+    
+    else if (this.reports.length > 100) {
+      this.title = 'Bestest Manager'
+    }
+  }
+  
+  fire (index) {
+    super.fire(index)
+    this.bonus += 100
+    return this.bonus
+
+  }
+
+}
+
+let bart = new ProgressiveManager('Bart', 'Simp', 'reee@remail.com', 66)
+
+// console.log(bart)
+
+bart.hire('kevin')
+bart.hire('devin')
+bart.hire('blevin')
+bart.hire('another bart')
+
+bart.fire(3)
+
+console.log(bart)
+
+  
 
 
 
